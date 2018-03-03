@@ -1,0 +1,7 @@
+<img src="{{giphy.images.fixed_height_still.url}}" width="200px" height="200px" style="border: solid 1px red">
+
+<br>
+
+<input type="button" value="Add to Favourite" (click)="favourite()" *ngIf="saved != true">
+
+<input type="button" value="Remove from Favourite" (click)="unfavourite()" *ngIf="saved == true">

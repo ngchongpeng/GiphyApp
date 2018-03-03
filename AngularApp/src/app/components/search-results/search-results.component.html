@@ -1,0 +1,13 @@
+<h1>Search-Results</h1>
+
+<input #searchKey type="text" placeholder="Search...">
+
+<input #size type="text" placeholder="Result Size...">
+
+<input type="button" value="Submit" (click)="search()">
+
+<div *ngFor="let giphy of searchedGiphys" style="padding: 2px">
+
+  <app-giphy [giphy]="giphy" [saved]="false"></app-giphy>
+
+</div>
