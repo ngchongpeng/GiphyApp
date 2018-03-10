@@ -1,5 +1,11 @@
-<input type="button" value="Search" (click)="searchresults()">
-<input type="button" value="Saved" (click)="savedresults()">
-<input #username type="text" placeholder="Username...">
-<input type="button" value="Login" (click)="login(username.value)">
-<input type="button" value="Logout" (click)="logout()">
+<form #hello>
+    <input #username type="text" placeholder="Username..." [hidden]="loggedIn" required>
+    <input type="button" value="Login" (click)="login(username.value)" [hidden]="loggedIn" [disabled]="hello.">
+    {{hello.invalid}}
+</form>
+
+<a href="#" (click)="searchresults()">Search</a>
+<a href="#" (click)="savedresults()" [hidden]="!loggedIn">Saved</a>
+
+<label style="color: red" [hidden]="!loggedIn">{{username.value}}</label>
+<input type="button" value="Logout" (click)="logout()" [hidden]="!loggedIn">

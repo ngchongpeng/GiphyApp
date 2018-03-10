@@ -38,7 +38,6 @@ export class SearchResultsComponent implements OnInit {
     var size = this.size.nativeElement.value;
     this.giphySvc.searchGiphys(searchKey, size).then(searchedGiphys => {
       this.searchedGiphys = searchedGiphys.data;
-      console.log(searchedGiphys.data);
     });
   }
 }

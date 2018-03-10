@@ -7,6 +7,8 @@ export class DataService {
     // properties
     user = new BehaviorSubject<any>('');
     userO = this.user.asObservable();
+    users = new BehaviorSubject<any>([]);
+    usersO = this.users.asObservable();
     savedGiphys = new BehaviorSubject<any>([]);
     savedGiphysO = this.savedGiphys.asObservable();
     searchedGiphys = new BehaviorSubject<any>([]);
@@ -19,5 +21,9 @@ export class DataService {
 
     updateUser(username: string) {
         this.user.next(username);
+    }
+
+    updateUsers(users: any) {
+        this.users.next(users);
     }
 }

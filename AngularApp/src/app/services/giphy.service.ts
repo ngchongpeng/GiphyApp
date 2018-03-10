@@ -15,7 +15,7 @@ export class GiphyService {
     constructor(private http: HttpClient) { }
 
     // methods
-    searchGiphys(searchKey: string, size: string): any {
+    searchGiphys(searchKey: string, size: string): Promise<any> {
 
         var apiUrl = 'https://api.giphy.com/v1/gifs/search';
         var httpParams = new HttpParams()
@@ -28,11 +28,11 @@ export class GiphyService {
             .toPromise();
     }
 
-    getFullGiphys(savedGiphys: any): any {
+    getFullGiphys(giphyIds: any): Promise<any> {
 
         var ids = '';
-        for (let i = 0; i < savedGiphys.length; i++) {
-            ids += (savedGiphys[i].GiphyId + ',');
+        for (let i = 0; i < giphyIds.length; i++) {
+            ids += (giphyIds[i].GiphyId + ',');
         }
 
         var apiUrl = 'https://api.giphy.com/v1/gifs'

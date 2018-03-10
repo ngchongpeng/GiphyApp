@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 
 import { DataService } from '../../services/data.service';
+import { DbService } from '../../services/db.service';
 
 
 @Component({
@@ -10,21 +11,29 @@ import { DataService } from '../../services/data.service';
 })
 
 
-export class GiphyComponent implements OnInit {
+export class GiphyComponent implements OnInit, OnDestroy {
 
   // properties\
   @Input() giphy: any;
   @Input() saved: boolean;
 
   // constructor
-  constructor(private dataSvc: DataService) { }
+  constructor(private dataSvc: DataService, private dbSvc: DbService) { }
 
   // oninit
-  ngOnInit() { }
+  ngOnInit() {
+    console.log('giphy component is created');
+  }
+
+  // ondestroy
+  ngOnDestroy() {
+    console.log('giphy component is destroyed');
+  }
 
   // event handler
   favourite() {
     var savedGiphys = this.dataSvc.savedGiphys.value;
+    this.dbSvc.addGiphy(this.giphy);
     savedGiphys.push(this.giphy);
     this.saved = true;
   }
@@ -35,6 +44,7 @@ export class GiphyComponent implements OnInit {
     if (index !== -1) {
       savedGiphys.splice(index, 1);
     }
+    this.dbSvc.removeGiphy(this.giphy);
     this.saved = false;
   }
 }

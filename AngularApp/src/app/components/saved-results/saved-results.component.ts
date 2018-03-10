@@ -25,7 +25,6 @@ export class SavedResultsComponent implements OnInit {
     console.log('saved-results component is created');
     this.savedGiphys = this.dataSvc.savedGiphys.value;
     this.sub = this.dataSvc.savedGiphysO.subscribe(savedGiphys => {
-      console.log('update in value is triggered in saved component');
       this.savedGiphys = savedGiphys;
     });
   }

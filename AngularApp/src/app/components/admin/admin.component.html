@@ -1,0 +1,11 @@
+<h1>Admin Console</h1>
+<table>
+  <tr>
+    <th>Users</th>
+    <th>No of Saved Giphys</th>
+  </tr>
+  <tr *ngFor="let user of users">
+    <td>{{user.UserId}}</td>
+    <td>{{user.Count}}</td>
+  </tr>
+</table>

@@ -17,6 +17,8 @@ export class MenuComponent implements OnInit {
 
   // properties
   @Output() switch = new EventEmitter<string>();
+  loggedIn = false;
+  userId = '';
 
   // constructor
   constructor(private dataSvc: DataService, private dbSvc: DbService, private giphySvc: GiphyService, private http: HttpClient) { }
@@ -33,35 +35,43 @@ export class MenuComponent implements OnInit {
 
   // event handlers
   searchresults() {
-    console.log('search button is clicked');
+    console.log('load search results page');
     this.switch.next('search');
   }
 
   savedresults() {
-    console.log('saved button is clicked');
+    console.log('load saved results page');
     this.switch.next('saved');
   }
 
   login(username: string) {
     console.log('login button is clicked');
+    if (username == 'admin') {
 
-    this.dbSvc.getSavedGiphys(username).then(savedGiphys => {
+      this.dbSvc.getUsers().then(users => {
+        this.dataSvc.updateUsers(users);
+      })
+    } else {
 
-      console.log(savedGiphys.length);
-
-      if (savedGiphys.length !== 0) {
-        this.giphySvc.getFullGiphys(savedGiphys)
-          .then(fullGiphys => {
-            this.dataSvc.updateSavedGiphys(fullGiphys.data);
-            this.dataSvc.updateUser(username);
-          });
-      }
-    });
+      this.dbSvc.getSavedGiphyIds(username).then(savedGiphys => {
+        if (savedGiphys.length !== 0) {
+          this.giphySvc.getFullGiphys(savedGiphys)
+            .then(fullGiphys => {
+              this.dataSvc.updateSavedGiphys(fullGiphys.data);
+            });
+        }
+      });
+    }
+    this.userId = username;
+    this.dataSvc.updateUser(username);
+    this.loggedIn = true;
   }
 
   logout() {
     console.log('logout button is clicked');
     this.dataSvc.updateSavedGiphys([]);
+    this.userId = '';
     this.dataSvc.updateUser('');
+    this.loggedIn = false;
   }
 }

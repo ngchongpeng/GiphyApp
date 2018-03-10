@@ -12,6 +12,7 @@ import { DataService } from './services/data.service';
 import { GiphyService } from './services/giphy.service';
 import { DbService } from './services/db.service';
 import { GiphyComponent } from './components/giphy/giphy.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { GiphyComponent } from './components/giphy/giphy.component';
     SearchResultsComponent,
     SavedResultsComponent,
     MenuComponent,
-    GiphyComponent
+    GiphyComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
